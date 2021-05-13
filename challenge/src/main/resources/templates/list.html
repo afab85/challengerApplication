@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="UTF-8" />
+	<title>ChallengeApplication</title>
+</head>
+<body>
+	<h1>Orders List</h1>
+	
+	<div th:each="purchaseorder : ${purchaseOrder}">
+		<div>			
+			 <a th:href="@{/{id}(id = ${purchaseorder.id}) }"><span th:text="${purchaseorder.textOrder}"></span></a>
+			 <a th:href="@{/delete(id = ${purchaseorder.id}) }"><button type="submit">Delete</button></a>		
+		</div>
+	</div>
+	
+	<h3><a href="/home">Home</a></h3>
+	<h3><a href="/new">Register a new Order</a></h3>
+</body>
+
+
+</html>

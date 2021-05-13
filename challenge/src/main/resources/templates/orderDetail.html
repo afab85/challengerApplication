@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="UTF-8" />
+	<title>ChallengeApplication</title>
+</head>
+<body>
+	<h1>Processed Order</h1>
+	
+	
+	
+	<div>
+		<td><span th:text="${amount}"></span></td>
+		<td><span th:text="${product}"></span></td>:
+		<td><span th:text="${price}"></span></td>
+	</div>
+	<div>
+		Sales Taxes: <td><span th:text="${taxes}"></span></td>
+	</div>
+	<div>
+		Total: <td><span th:text="${total}"></span></td>
+	</div>	
+	
+	<h3><a href="/home">Home</a></h3>
+	<h3><a href="/list">List of orders</a></h3>
+	<h3><a href="/new">Register a new Order</a></h3>
+</body>
+
+
+</html>
