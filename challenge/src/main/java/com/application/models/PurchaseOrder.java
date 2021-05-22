@@ -55,7 +55,7 @@ public class PurchaseOrder {
 	//Este metodo calcula a taxa basica de vendas
 	public double basicTaxCalculator(double itemPrice, int amount) {
 		double basicTax = 0.10;
-		return basicRound(itemPrice * basicTax);
+		return basicRound(itemPrice * basicTax) * amount;
 	}
 	//Este metodo calcula a taxa para produtos importados
 	public double importTaxCalculator(double itemPrice, int amount) {
