@@ -1,5 +1,5 @@
 
-# For import, maintenance or study this application, consider the following Setup information.
+# For import, maintenance or study this application, consider following the setup information.
 
 
 
