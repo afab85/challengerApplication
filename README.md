@@ -32,4 +32,4 @@ This application uses the relational database MySql.
 
 You need to edit with yours localhost address and credentials at the application.properties in resources folder.
 
-Also create in your SGBD the database challenge_application, the persistence tables will be created automatically.
+Also create in your RDBMS the database challenge_application, the persistence tables will be created automatically.
