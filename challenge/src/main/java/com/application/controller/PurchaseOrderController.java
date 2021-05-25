@@ -56,22 +56,15 @@ public class PurchaseOrderController {
 		
 		ModelAndView mv = new ModelAndView("orderDetail");
 		
-		purchaseOrder.getTextOrder().replaceAll(" at ", " at#@#");
-		
-		List<String> purchaseOrderList = Arrays.asList(purchaseOrder.getTextOrder().split("#@#"));		
+		String[] ordersArray = purchaseOrder.sliceOrder();	
 		
 		double auxTotal = 0;
 		
-		for (int i = 0; i <  purchaseOrderList.size(); i++) {
+		for (int i = 0; i <  ordersArray.length; i++) {
 			PurchaseOrder po = new PurchaseOrder();
-			String aux = "";
+
+			po.setTextOrder(ordersArray[i]);
 					
-			po.setTextOrder(purchaseOrderList.toString());
-					
-			aux = po.getTextOrder().replace("]", "");
-			po.setTextOrder(aux.replace("[", ""));
-			
-			
 			model.addAttribute("amount", po.amount());
 			model.addAttribute("product", po.product());
 			model.addAttribute("price", 
@@ -86,7 +79,7 @@ public class PurchaseOrderController {
 								 	   "");	
 		    model.addAttribute("total", auxTotal);
 		}
-
+		
 		return mv;
 	}
 }

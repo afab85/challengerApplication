@@ -1,5 +1,7 @@
 package com.application.models;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.regex.Pattern;
 
 import javax.persistence.Entity;
@@ -42,11 +44,16 @@ public class PurchaseOrder {
 			order.deleteCharAt(order.indexOf("."));			
 		}
 		
-		this.textOrder = order.toString();
+		this.textOrder = order.toString().replaceAll(",", ".");
 		
-		String[] fraseArray = this.textOrder.split("#@#");
+		String[] orderArray = this.textOrder.split("#@#");
 		
-		return fraseArray;
+		for (int i = 0; i < orderArray.length; i++) {
+			orderArray[i] = orderArray[i].trim();
+			
+		}
+		
+		return orderArray;
 	}
 	
 	//Este metodo extrai o preco da ordem de compra de acordo com o input
@@ -78,11 +85,8 @@ public class PurchaseOrder {
 	
 	//Este metodo arredonda valores
 	public double basicRound (double itemPrice) {
-		double roundFactor = 1.1;
-		itemPrice *= roundFactor;
-		itemPrice = Math.rint(itemPrice);
-		
-		return itemPrice /= roundFactor;
+		BigDecimal roundFactor = new BigDecimal(itemPrice).setScale(2, RoundingMode.HALF_EVEN);		
+		return roundFactor.doubleValue();
 	}
 		
 	//Este metodo calcula a taxa basica de vendas
