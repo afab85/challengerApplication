@@ -7,7 +7,7 @@
 
 This is a Java 8 application, another version was not tested.
 
-### Instalation
+### Third Party Applications
 
 This application uses Lombok plugin and Apache Maven as building tool for dependencies.
 
