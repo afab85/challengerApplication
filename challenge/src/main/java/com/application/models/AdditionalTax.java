@@ -27,7 +27,11 @@ public class AdditionalTax {
 		double importTax = 0.05;
 		return (basicRound(itemPrice * importTax)) * amount;
 	}
-	
+	//Este metodo calcula a taxa para produtos importados
+	public double musicTaxCalculator(double itemPrice, int amount) {
+		double musicTax = 0.15;
+		return (basicRound(itemPrice * musicTax)) * amount;
+	}
 	//Este metodo calcula a taxa para produtos importados e sem isencao
 	public double bothTaxCalculator(double itemPrice, int amount) {
 		double importTax = 0.05;
