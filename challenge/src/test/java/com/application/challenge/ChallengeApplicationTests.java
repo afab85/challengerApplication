@@ -1,13 +1,25 @@
 package com.application.challenge;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
-@SpringBootTest
+import com.application.controller.PurchaseOrderController;
+
+
+@WebMvcTest
 class ChallengeApplicationTests {
-
+	
+	private PurchaseOrderController purchaseOrderController;
+	
+	@BeforeEach
+	public void setup() {
+		
+	}
+	
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
+		
 	}
 
 }

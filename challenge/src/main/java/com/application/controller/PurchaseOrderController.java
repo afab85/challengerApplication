@@ -1,7 +1,5 @@
 package com.application.controller;
 
-import java.util.Arrays;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -58,25 +56,18 @@ public class PurchaseOrderController {
 		
 		String[] ordersArray = purchaseOrder.sliceOrder();	
 		
-		double auxTotal = 0;
+		PurchaseOrder po = new PurchaseOrder();
 		
+		double auxTotal = 0;
+			
 		for (int i = 0; i <  ordersArray.length; i++) {
-			PurchaseOrder po = new PurchaseOrder();
 
 			po.setTextOrder(ordersArray[i]);
 					
 			model.addAttribute("amount", po.amount());
 			model.addAttribute("product", po.product());
-			model.addAttribute("price", 
-									  !po.isBasicTaxFree() && !po.isImport()  ? auxTotal = po.finalBasicTaxCalculator(Double.parseDouble(po.price()), (po.amount()))  :
-									  !po.isBasicTaxFree() &&  po.isImport()  ? auxTotal = po.finalBothTaxCalculator(Double.parseDouble(po.price()), (po.amount()))  :
-									   po.isBasicTaxFree() &&  po.isImport()  ? auxTotal = po.finalImportTaxCalculator(Double.parseDouble(po.price()), (po.amount())) :
-									   po.isBasicTaxFree() && !po.isImport()  ? auxTotal = (Double.parseDouble(po.price())) : (Double.parseDouble(po.price())));
-			model.addAttribute("taxes", 
-									  !po.isBasicTaxFree() && !po.isImport() ? po.basicTaxCalculator(Double.parseDouble(po.price()), po.amount())  :
-									  !po.isBasicTaxFree() && po.isImport()  ? po.bothTaxCalculator(Double.parseDouble(po.price()), po.amount())   :
-									   po.isBasicTaxFree() && po.isImport()  ? po.importTaxCalculator(Double.parseDouble(po.price()), po.amount()) :
-								 	   "");	
+			model.addAttribute("price", auxTotal = po.FinaltaxItemsCalculator(po));
+			model.addAttribute("taxes", po.salesTaxCalculator(po));	
 		    model.addAttribute("total", auxTotal);
 		}
 		

@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import lombok.Data;
 
 //Esta é a classe da requisição de compra, o input conforme desafio é feito atraves de uma linha de texto
@@ -24,6 +26,7 @@ public class PurchaseOrder {
 	
 	private String textOrder;
 	
+	//Este metodo fatia as ordens de compra que tem mais de um item
 	public String[] sliceOrder() {
 		StringBuilder order = new StringBuilder(this.textOrder);
 		
@@ -43,7 +46,7 @@ public class PurchaseOrder {
 			order.replace(order.indexOf("."), order.indexOf("."), ",");
 			order.deleteCharAt(order.indexOf("."));			
 		}
-		
+
 		this.textOrder = order.toString().replaceAll(",", ".");
 		
 		String[] orderArray = this.textOrder.split("#@#");
@@ -64,7 +67,7 @@ public class PurchaseOrder {
 	public String product() {
 		return this.textOrder.substring(this.textOrder.indexOf(" ") + 1, this.textOrder.indexOf(" at"));
 	}
-	//Este metodo estrai do input a quantidade
+	//Este metodo extrai do input a quantidade
 	public int amount() {
 		return Integer.parseInt(this.textOrder.substring(0, this.textOrder.indexOf(" ")));
 	}
@@ -83,42 +86,17 @@ public class PurchaseOrder {
 		return (Pattern.compile("music",  Pattern.MULTILINE).matcher(this.textOrder.toLowerCase()).find()) ?  true : false;
 	}
 	
-	//Este metodo arredonda valores
-	public double basicRound (double itemPrice) {
-		BigDecimal roundFactor = new BigDecimal(itemPrice).setScale(2, RoundingMode.HALF_EVEN);		
-		return roundFactor.doubleValue();
-	}
+	public double FinaltaxItemsCalculator(PurchaseOrder po) {		
+		AdditionalTax ad = new AdditionalTax();
 		
-	//Este metodo calcula a taxa basica de vendas
-	public double basicTaxCalculator(double itemPrice, int amount) {
-		double basicTax = 0.10;
-		return basicRound(itemPrice * basicTax) * amount;
+		return ad.finalAllTaxCalculator(Double.parseDouble(po.price()), po.amount(), po.isMusicProduct(), po.isBasicTaxFree(), po.isImport()); 
 	}
-	//Este metodo calcula a taxa para produtos importados
-	public double importTaxCalculator(double itemPrice, int amount) {
-		double importTax = 0.05;
-		return (basicRound(itemPrice * importTax)) * amount;
+	
+	public double salesTaxCalculator (PurchaseOrder po) {		
+		AdditionalTax ad = new AdditionalTax();
+		
+		return ad.allTaxCalculator(Double.parseDouble(po.price()), po.amount(), po.isMusicProduct(), po.isBasicTaxFree(), po.isImport());
 	}
-	//Este metodo calcula a taxa para produtos importados e sem isencao
-	public double bothTaxCalculator(double itemPrice, int amount) {
-		double importTax = 0.05;
-		double basicTax = 0.10;
-		return (basicRound(itemPrice * (importTax + basicTax))) * amount;
-	}
-	//Este metodo calcula o preco do produto incluindo a taxa basica
-	public double finalBasicTaxCalculator(double itemPrice, int amount) {
-		double basicTax = 1.10;
-		return (basicRound(itemPrice * basicTax)) * amount;
-	}
-	//Este metodo calcula o preco do produto incluindo a taxa basica
-	public double finalImportTaxCalculator(double itemPrice, int amount) {
-		double importTax = 1.05;
-		return (basicRound(itemPrice * importTax)) * amount;
-	}
-	//Este metodo calcula o preco do produto incluindo a taxa basica e a taxa de produtos importados
-	public double finalBothTaxCalculator(double itemPrice, int amount) {
-		double importTax = 0.05;
-		double basicTax = 1.10;
-		return (basicRound(itemPrice * (importTax + basicTax))) * amount;
-	}
+
+
 }
