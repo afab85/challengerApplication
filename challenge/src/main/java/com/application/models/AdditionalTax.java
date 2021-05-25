@@ -1,5 +1,8 @@
 package com.application.models;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import lombok.Data;
 
 @Data
@@ -9,14 +12,9 @@ public class AdditionalTax {
 	private double itemPrice;
 	
 	//Este metodo arredonda valores
-	public double basicRound (double itemPrice) {
-//		double roundFactor = 1.1;
-//		itemPrice *= roundFactor;
-//		itemPrice = Math.rint(itemPrice);
-//		
-//		return itemPrice /= roundFactor;
-		
-		return Math.nextDown(itemPrice);
+	public double basicRound (double roundItem) {
+		BigDecimal roundFactor = new BigDecimal(roundItem).setScale(2, RoundingMode.HALF_EVEN);		
+		return roundFactor.doubleValue();
 	}
 	
 	//Este metodo calcula a taxa basica de vendas

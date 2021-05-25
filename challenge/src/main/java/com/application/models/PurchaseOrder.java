@@ -21,6 +21,34 @@ public class PurchaseOrder {
 	private Long id;
 	
 	private String textOrder;
+	
+	public String[] sliceOrder() {
+		StringBuilder order = new StringBuilder(this.textOrder);
+		
+		int totalOfDots = 0;
+		
+		char temp;
+		
+		for (int i = 0; i < order.length(); i++) {
+			
+			temp = order.charAt(i);
+			if (temp == '.')
+          	totalOfDots++;
+		}
+		
+		for (int i = 0; i < totalOfDots; i++) {
+			order.replace(order.indexOf(".")+3, order.indexOf(".")+3, "#@#");
+			order.replace(order.indexOf("."), order.indexOf("."), ",");
+			order.deleteCharAt(order.indexOf("."));			
+		}
+		
+		this.textOrder = order.toString();
+		
+		String[] fraseArray = this.textOrder.split("#@#");
+		
+		return fraseArray;
+	}
+	
 	//Este metodo extrai o preco da ordem de compra de acordo com o input
 	public String price() {
 		return this.textOrder.substring(this.textOrder.indexOf("at ") + 3, this.textOrder.length());
@@ -39,10 +67,15 @@ public class PurchaseOrder {
 		return (Pattern.compile("import",  Pattern.MULTILINE).matcher(this.textOrder.toLowerCase()).find()) ?  true : false;
 
 	}
-	//Neste metodo foi definido uma palavra chave para identificar se o produto eh idento de taxas, que varre todo fragmento de entrada.
+	//Neste metodo foi definido uma palavra chave para identificar se o produto eh isento de taxas, que varre todo fragmento de entrada.
 	public boolean isBasicTaxFree() {
 		return (Pattern.compile("book|syrup|pill|choco|apple",  Pattern.MULTILINE).matcher(this.textOrder.toLowerCase()).find()) ?  true : false;
 	}
+	//Neste metodo foi definido uma palavra chave para identificar se o produto eh do tipo music, o metodo varre todo fragmento de entrada.
+	public boolean isMusicProduct() {
+		return (Pattern.compile("music",  Pattern.MULTILINE).matcher(this.textOrder.toLowerCase()).find()) ?  true : false;
+	}
+	
 	//Este metodo arredonda valores
 	public double basicRound (double itemPrice) {
 		double roundFactor = 1.1;
