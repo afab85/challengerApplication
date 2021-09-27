@@ -3,7 +3,7 @@
 
 
 
-### Important
+## Important
 
 This is a Java 8 application, another version was not tested.
 
@@ -15,18 +15,18 @@ Download Lombok at: https://projectlombok.org/download
 
 Download Apache Maven at: https://maven.apache.org/download.cgi
 
-### IDE
+## IDE
 
 This application has been implemented in the Eclipse IDE, make sure that the pre-requisite programs have been installed correctly.
 
 This source file was not tested in others IDE's.
 
-### Import
+## Import
 
 As a Maven project, you need to extract the source file in your workspace, after this, you need to select in the import wizard: Existing Maven Project.
 
 
-### Other Informations and Configurations
+## Other Informations and Configurations
 
 This application uses the relational database MySql.
 
